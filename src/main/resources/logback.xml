@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="SEARCH_API" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>D:\\Temporary\\search.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/letv/logs/apps/toutiao/search-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>20</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{HH:mm:ss.SSS} %-5level [%thread][%X{qtraceid}] %logger{32} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="SEARCH_API_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>1048576</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="SEARCH_API"/>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{HH:mm:ss.SSS} %-5level [%thread] %class{32}:%line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+	<root level="INFO">
+		<appender-ref ref="${logback.appender}" />
+	</root>
+
+</configuration>
